@@ -31,7 +31,9 @@ do
 		if [ ! -d "$OLD_DIR/$dir" ];then
 			mkdir -p $OLD_DIR"/"$dir
 		fi
-		cp $file $OLD_DIR"/"$dir"/"
+		if [ -f "$file" ];then
+			cp $file $OLD_DIR"/"$dir"/"
+		fi
 	fi
 done
 
@@ -56,7 +58,12 @@ do
 		fi
 		cp $file $NEW_DIR"/"$dir"/"
 		#rollback!
-		cp $OLD_DIR"/"$file $file
+		old_file=$OLD_DIR"/"$file
+		if [ -f "$old_file" ];then
+			cp $old_file $file
+		else
+			rm $file
+		fi
 	fi
 done
 
