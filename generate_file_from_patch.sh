@@ -1,7 +1,25 @@
 #!/bin/bash
 
+# As a Linux Kernel newbie, it usually drives me mad when
+# reviewing other's patch. Since the patches are in diff format,
+# it is quite hard to get the whole picture of what and where
+# this patch has changed.
+#
+# This script generates two directories according to the patch
+# content. The first one is 'old', the other one is 'new'. The
+# 'old' directory contains the files that are involved in this
+# patch, but has not been modified by the patch, AKA, the original
+# files. The 'new' also contains the files that are mentioned
+# in the patch, but with the patch applied.
+# In this way, the user can compare the full content of corresponding
+# files very conveniently, by launching:
+# meld compare_dir/old compare_dir/new
+#
+#
+
 if [ $# != 1 ]; then
-echo "USAGE: $0 patch_file"
+echo "USAGE: cd source_code_dir"
+echo "       $0 patch_file"
 echo " e.g.: $0 0001-x86-fix-s4.patch"
 exit 1;
 fi
